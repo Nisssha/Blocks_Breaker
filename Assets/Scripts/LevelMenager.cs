@@ -1,0 +1,22 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class LevelMenager : MonoBehaviour {
+
+
+	public void LoadLevel (string name){
+		Application.LoadLevel (name);
+		}
+	
+	public void QuitFunction () {
+		Application.Quit ();
+	}
+	
+	public void LoadNextLevel () {
+		Application.LoadLevel (Application.loadedLevel + 1);
+	}
+	
+	public void BrickDestroyed () {
+		if (Block_1hit.breakableCount <= 0) {LoadNextLevel();}
+	}
+}
