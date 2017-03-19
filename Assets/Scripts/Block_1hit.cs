@@ -11,8 +11,6 @@ public class Block_1hit : MonoBehaviour {
 	public Sprite[] hitSprites;
 	private bool isBreakable;
 	public GameObject smoke;
-	//public GameObject puff;
-	//public GameObject brick;
 	
 	void Start() {
 	
@@ -25,30 +23,33 @@ public class Block_1hit : MonoBehaviour {
 		timesHit = 0;
 	}
 	
+    //check if hit object is breakable, play audio effect of hit
 	void OnCollisionEnter2D (Collision2D col) {
 		
 		if (isBreakable) {HandleHits();}
 		AudioSource.PlayClipAtPoint(bounce, transform.position);
 	}
 	
+    //add hit, check if brick should be destoyed according to number of times it has been hit, if yes: destroy it, decrease
+    //amount of breakable objects in scene, create particle system for smoke
+    //if it should not be destroyed change sprite
 	void HandleHits (){
 		timesHit++;
 		int maxHits = hitSprites.Length +1;
 		if (timesHit >= maxHits) {
 			Destroy(gameObject);
 			breakableCount--;
-			//smoke.renderer.material.SetColor("_Color", this.renderer.material.color);
 			GameObject smokePuff = Instantiate(smoke, transform.position, Quaternion.identity) as GameObject;
 			smokePuff.GetComponent<ParticleSystem>().startColor = gameObject.GetComponent<SpriteRenderer>().color;
-			//puff = smoke;
 			levelMenager.BrickDestroyed();}
 		else {LoadSprites();}		
 	}
 	
+    //changing sprite to next sprite in array
 	void LoadSprites () {
 		int SpriteIndex = timesHit -1;
 		if (hitSprites[SpriteIndex]) {
 		this.GetComponent<SpriteRenderer>().sprite = hitSprites[SpriteIndex];
-		}else {Debug.LogError ("brak spritea");}
+		}else {Debug.LogError ("Sprite not found");}
 	}
 }

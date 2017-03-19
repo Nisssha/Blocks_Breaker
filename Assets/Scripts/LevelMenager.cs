@@ -16,6 +16,7 @@ public class LevelMenager : MonoBehaviour {
 		Application.LoadLevel (Application.loadedLevel + 1);
 	}
 	
+    //Load next level in build if all of the bricks were destroyed
 	public void BrickDestroyed () {
 		if (Block_1hit.breakableCount <= 0) {LoadNextLevel();}
 	}

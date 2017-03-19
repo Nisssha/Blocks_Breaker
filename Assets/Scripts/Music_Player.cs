@@ -4,21 +4,18 @@ using System.Collections;
 public class Music_Player : MonoBehaviour {
 
 	static Music_Player instance = null;
-	 
-	void Awake() {
-		
-		if (instance != null) {
+	
+    //destroy this music player if another already exists, if not assign it as music player instance 
+	void Awake()
+    {
+		if (instance != null)
+        {
 			Destroy(gameObject);
-			print ("hulk smash");
 		}
-		else{
+		else
+        {
 		instance = this;
 		GameObject.DontDestroyOnLoad (gameObject);
 		}
-	}
-
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }
